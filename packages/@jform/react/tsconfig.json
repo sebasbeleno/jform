@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "jsx": "react",
+        "module": "ES6",
+        "moduleResolution": "node",
+        "rootDir": "./",
+        "baseUrl": "./src",
+        "outDir": "./dist",
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "declaration": true,
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@jform/react",
+  "version": "1.0.0",
+  "description": "Build react forms with json schema",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node serve.js",
+    "build": "rimraf dist && esbuild src/index.tsx --bundle --minify --sourcemap --outdir=dist && tsc --emitDeclarationOnly --outDir dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.14.42",
+    "live-server": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5"
+  }
+}
