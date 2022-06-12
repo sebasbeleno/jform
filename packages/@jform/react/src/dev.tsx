@@ -39,9 +39,6 @@ const DevApp = () => {
     return (
         <div>
             <App schema={formSchema} onChange={handleChange} onSubmit={handleSubmit}/>
-
-            {RenderFields()}
-
         </div>
     )
 }

@@ -1,29 +1,62 @@
 import React, { useState, useEffect, Component } from "react";
-import { FormProps } from "types";
+import { FormProps, FieldType, FormState, FormValue, FieldProp } from "types";
 import FormFields from "./FormFields";
 
-export default class Form extends Component<FormProps, {title: string, fields: any, values: any, onChange: any, onSubmit: any}> {
+export default class Form extends Component<FormProps, FormState> {
     constructor(props: FormProps) {
         super(props);
 
         this.state = {
             title: props.schema.title,
             fields: props.schema.fields,
-            values: {},
+            values: this.getValuesFromFields(props.schema.fields),
             onChange: props.onChange,
             onSubmit: props.onSubmit,
         }
 
     }
 
+
+    getValuesFromFields = (fields: FieldType): FormValue => {
+        let values: FormValue = {};
+        Object.keys(fields).forEach((keyName) => {
+            values[keyName] = fields[keyName].default ?? this.guessDefaultValues(fields[keyName].type);
+        })
+        return values
+    }
+
+    guessDefaultValues = (type: string) => {
+        switch (type) {
+            case 'string':
+                return ''
+            case 'number':
+                return 0
+
+            default:
+                break;
+        }
+    }
+
+    getValueFromField = (value: string, type: string, valueAsNumber: number): any => {
+        switch (type) {
+            case 'text':
+                return value ?? this.guessDefaultValues(type)
+            case 'number':
+                return valueAsNumber ?? this.guessDefaultValues(type)
+
+            default:
+                return value;
+        }
+    }
+
     onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value, valueAsNumber, type } = e.target;
 
         this.setState(prev => ({
             ...prev,
             values: {
                 ...prev.values,
-                [name]: value
+                [name]: this.getValueFromField(value, type, valueAsNumber)
             }
         }), () => {
             this.props.onChange(this.state.values)

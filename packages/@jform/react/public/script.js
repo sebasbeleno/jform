@@ -19427,11 +19427,39 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   var Form = class extends import_react3.Component {
     constructor(props) {
       super(props);
+      this.getValuesFromFields = (fields) => {
+        let values = {};
+        Object.keys(fields).forEach((keyName) => {
+          var _a;
+          values[keyName] = (_a = fields[keyName].default) != null ? _a : this.guessDefaultValues(fields[keyName].type);
+        });
+        return values;
+      };
+      this.guessDefaultValues = (type) => {
+        switch (type) {
+          case "string":
+            return "";
+          case "number":
+            return 0;
+          default:
+            break;
+        }
+      };
+      this.getValueFromField = (value, type, valueAsNumber) => {
+        switch (type) {
+          case "text":
+            return value != null ? value : this.guessDefaultValues(type);
+          case "number":
+            return valueAsNumber != null ? valueAsNumber : this.guessDefaultValues(type);
+          default:
+            return value;
+        }
+      };
       this.onFieldChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, valueAsNumber, type } = e.target;
         this.setState((prev) => __spreadProps(__spreadValues({}, prev), {
           values: __spreadProps(__spreadValues({}, prev.values), {
-            [name]: value
+            [name]: this.getValueFromField(value, type, valueAsNumber)
           })
         }), () => {
           this.props.onChange(this.state.values);
@@ -19444,7 +19472,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       this.state = {
         title: props.schema.title,
         fields: props.schema.fields,
-        values: {},
+        values: this.getValuesFromFields(props.schema.fields),
         onChange: props.onChange,
         onSubmit: props.onSubmit
       };
@@ -19499,7 +19527,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       schema: formSchema,
       onChange: handleChange,
       onSubmit: handleSubmit
-    }), RenderFields());
+    }));
   };
   import_react_dom.default.render(/* @__PURE__ */ import_react5.default.createElement(DevApp, null), document.getElementById("root"));
 })();

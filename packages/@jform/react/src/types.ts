@@ -36,3 +36,15 @@ export interface FieldProps {
   defualtValue: any;
   placeholder?: string;
 }
+
+export interface FormState {
+  values: FormValue;
+  fields: FieldType;
+  title: string;
+  onChange: any;
+  onSubmit: any;
+}
+
+export interface FormValue {
+  [key: string]: any
+}
