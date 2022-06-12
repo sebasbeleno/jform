@@ -1,10 +1,27 @@
 (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
@@ -1078,7 +1095,7 @@
             }
             return dispatcher.useContext(Context, unstable_observedBits);
           }
-          function useState(initialState) {
+          function useState3(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1090,7 +1107,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect(create, deps) {
+          function useEffect2(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1363,13 +1380,13 @@
           exports.useCallback = useCallback;
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
-          exports.useEffect = useEffect;
+          exports.useEffect = useEffect2;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect;
           exports.useMemo = useMemo;
           exports.useReducer = useReducer;
           exports.useRef = useRef;
-          exports.useState = useState;
+          exports.useState = useState3;
           exports.version = ReactVersion;
         })();
       }
@@ -2354,12 +2371,12 @@
       if (true) {
         (function() {
           "use strict";
-          var React3 = require_react();
+          var React6 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var checkPropTypes = require_checkPropTypes();
           var tracing = require_tracing();
-          var ReactSharedInternals = React3.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           if (!ReactSharedInternals.hasOwnProperty("ReactCurrentDispatcher")) {
             ReactSharedInternals.ReactCurrentDispatcher = {
               current: null
@@ -2412,7 +2429,7 @@
               }
             }
           }
-          if (!React3) {
+          if (!React6) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3757,7 +3774,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React3.Children.forEach(children, function(child) {
+            React6.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3768,7 +3785,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React3.Children.forEach(props.children, function(child) {
+                React6.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10802,7 +10819,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React3.Component().refs;
+          var emptyRefsObject = new React6.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -19352,41 +19369,124 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   });
 
   // src/dev.tsx
-  var import_react2 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
 
   // src/index.tsx
+  var import_react4 = __toESM(require_react());
+
+  // src/Components/Form.tsx
+  var import_react3 = __toESM(require_react());
+
+  // src/Components/FormFields.tsx
+  var import_react2 = __toESM(require_react());
+
+  // src/Components/Field.tsx
   var import_react = __toESM(require_react());
+  var Field = (props) => {
+    const RenderInput = () => {
+      switch (props.field.type) {
+        case "string":
+          return /* @__PURE__ */ import_react.default.createElement("input", {
+            placeholder: props.placeholder,
+            onChange: props.onChange,
+            type: "text",
+            name: props.name,
+            defaultValue: props.defualtValue
+          });
+        case "number":
+          return /* @__PURE__ */ import_react.default.createElement("input", {
+            placeholder: props.placeholder,
+            onChange: props.onChange,
+            type: "number",
+            name: props.name,
+            defaultValue: props.defualtValue
+          });
+      }
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, props.field.title), RenderInput());
+  };
+  var Field_default = Field;
+
+  // src/Components/FormFields.tsx
+  var FormFields = (props) => {
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, Object.keys(props.fields).map((keyName) => {
+      return /* @__PURE__ */ import_react2.default.createElement(Field_default, {
+        placeholder: props.fields[keyName].placeholder,
+        onChange: props.onChange,
+        field: props.fields[keyName],
+        key: keyName,
+        name: keyName,
+        defualtValue: props.fields[keyName].default
+      });
+    })));
+  };
+  var FormFields_default = FormFields;
+
+  // src/Components/Form.tsx
   var Form = (props) => {
-    const Field = (props2) => {
-      const type = props2.field.type === "string" ? "text" : "number";
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, props2.field.title), /* @__PURE__ */ import_react.default.createElement("input", {
-        type
-      }));
+    const [fieldsValue, setFieldsValue] = (0, import_react3.useState)({});
+    const onChange = (e) => {
+      const { name, value } = e.target;
+      setFieldsValue(__spreadProps(__spreadValues({}, fieldsValue), { [name]: value }));
     };
-    const RenderFields = () => {
-      const fields = props.schema.fields;
-      return /* @__PURE__ */ import_react.default.createElement("div", null, Object.keys(fields).map((keyName) => {
-        return /* @__PURE__ */ import_react.default.createElement(Field, {
-          field: fields[keyName],
-          key: keyName
-        });
-      }));
+    (0, import_react3.useEffect)(() => {
+      props.onChange(fieldsValue);
+    }, [fieldsValue]);
+    const onClick = (e) => {
+      e.preventDefault();
+      props.onSubmit(fieldsValue);
     };
-    return /* @__PURE__ */ import_react.default.createElement("form", null, /* @__PURE__ */ import_react.default.createElement("h1", null, props.schema.title), /* @__PURE__ */ import_react.default.createElement(RenderFields, null));
+    return /* @__PURE__ */ import_react3.default.createElement("form", null, /* @__PURE__ */ import_react3.default.createElement("h1", null, props.schema.title), /* @__PURE__ */ import_react3.default.createElement(FormFields_default, {
+      onChange,
+      fields: props.schema.fields
+    }), /* @__PURE__ */ import_react3.default.createElement("input", {
+      type: "button",
+      value: "Enviar",
+      onClick
+    }));
+  };
+  var Form_default = Form;
+
+  // src/index.tsx
+  var Form2 = (props) => {
+    return /* @__PURE__ */ import_react4.default.createElement(Form_default, {
+      onChange: props.onChange,
+      schema: props.schema,
+      onSubmit: props.onSubmit
+    });
   };
 
   // src/dev.tsx
   var formSchema = {
-    title: "Formulario de prueba",
+    title: "Prueba",
     fields: {
-      "name": { title: "Name", type: "string", default: "dfgjdfo" },
-      "age": { title: "Age", type: "number", default: 1 }
+      "name": { title: "Nombre", type: "string", placeholder: "Pon tu nombre aqu\xED asqueroso", default: "Isabella" },
+      "lastName": { title: "Last Name", type: "string", placeholder: "Please type your last name" },
+      "age": { title: "Age", type: "number", default: 19 },
+      "cedula": { title: "Cedula", type: "number" }
     }
   };
-  import_react_dom.default.render(/* @__PURE__ */ import_react2.default.createElement(Form, {
-    schema: formSchema
-  }), document.getElementById("root"));
+  var App = () => {
+    const [values, setValues] = (0, import_react5.useState)({ name: "", lastName: "", age: "" });
+    const handleSubmit = (values2) => {
+      console.log(values2);
+    };
+    const handleChange = (values2) => {
+      setValues(values2);
+    };
+    const RenderFields = () => {
+      return Object.keys(values).map((keyName) => {
+        return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("h4", null, keyName), /* @__PURE__ */ import_react5.default.createElement("p", null, values[keyName]));
+      });
+    };
+    return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement(Form2, {
+      schema: formSchema,
+      onChange: handleChange,
+      onSubmit: handleSubmit
+    }), RenderFields());
+  };
+  import_react_dom.default.render(/* @__PURE__ */ import_react5.default.createElement(App, null), document.getElementById("root"));
 })();
 /*
 object-assign
