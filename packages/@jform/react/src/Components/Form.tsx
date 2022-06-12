@@ -27,7 +27,7 @@ export default class Form extends Component<FormProps, FormState> {
 
     guessDefaultValues = (type: string) => {
         switch (type) {
-            case 'string':
+            case 'text':
                 return ''
             case 'number':
                 return 0
@@ -43,7 +43,8 @@ export default class Form extends Component<FormProps, FormState> {
                 return value ?? this.guessDefaultValues(type)
             case 'number':
                 return valueAsNumber ?? this.guessDefaultValues(type)
-
+            case 'select-one':
+                return value
             default:
                 return value;
         }

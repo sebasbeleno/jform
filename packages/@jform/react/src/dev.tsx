@@ -6,10 +6,11 @@ import App from './index';
 const formSchema: FormSchema = {
     title: 'Prueba',
     fields: {
-        "name": { title: "Nombre", type: 'string', placeholder: 'Pon tu nombre aquí asqueroso', default: 'Isabella' },
-        "lastName": { title: "Last Name", type: 'string', placeholder: 'Please type your last name' },
+        "name": { title: "Nombre", type: 'text', placeholder: 'Pon tu nombre aquí asqueroso', default: 'Isabella' },
+        "lastName": { title: "Last Name", type: 'text', placeholder: 'Please type your last name' },
         "age": { title: "Age", type: 'number', default: 19 },
-        "cedula": { title: "Cedula", type: 'number'},
+        "tipoDocumento": { title: 'Tipo de documento', type: 'select', options: ['Cedula', 'Pasaporte', 'Otro'] },
+        "cedula": { title: "Cedula", type: 'number' },
     }
 };
 
@@ -24,16 +25,6 @@ const DevApp = () => {
     const handleChange = (values: any) => {
         setValues(values)
         console.log(values)
-    }
-
-    const RenderFields = () => {
-        return Object.keys(values).map((keyName) => {
-            return (
-                <div>
-                    <h4>{keyName}</h4>
-                </div>
-            )
-        })
     }
 
     return (

@@ -1,26 +1,32 @@
-
 export interface StringField {
-    type: 'string';
-    default?: string;
-    title: string;
-    placeholder?: string;
+  type: 'text';
+  default?: string;
+  title: string;
+  placeholder?: string;
 }
 
 export interface NumberField {
-    type: 'number';
-    default?: number;
-    title: string;
-    placeholder?: string;
+  type: 'number';
+  default?: number;
+  title: string;
+  placeholder?: string;
 }
 
-export type FieldProp  = (StringField | NumberField);
+export interface SelectField {
+  type: 'select';
+  default?: string;
+  title: string;
+  options: string[]
+}
+
+export type FieldProp = StringField | NumberField | SelectField;
 
 export interface FieldType {
   [key: string]: FieldProp;
 }
 export interface FormSchema {
   title: string;
-  fields: FieldType
+  fields: FieldType;
 }
 
 export interface FormProps {
@@ -46,5 +52,5 @@ export interface FormState {
 }
 
 export interface FormValue {
-  [key: string]: any
+  [key: string]: any;
 }

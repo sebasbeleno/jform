@@ -2371,12 +2371,12 @@
       if (true) {
         (function() {
           "use strict";
-          var React6 = require_react();
+          var React7 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var checkPropTypes = require_checkPropTypes();
           var tracing = require_tracing();
-          var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           if (!ReactSharedInternals.hasOwnProperty("ReactCurrentDispatcher")) {
             ReactSharedInternals.ReactCurrentDispatcher = {
               current: null
@@ -2429,7 +2429,7 @@
               }
             }
           }
-          if (!React6) {
+          if (!React7) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3774,7 +3774,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React6.Children.forEach(children, function(child) {
+            React7.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3785,7 +3785,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React6.Children.forEach(props.children, function(child) {
+                React7.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10819,7 +10819,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React6.Component().refs;
+          var emptyRefsObject = new React7.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -19369,62 +19369,86 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   });
 
   // src/dev.tsx
-  var import_react5 = __toESM(require_react());
+  var import_react6 = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
 
   // src/index.tsx
-  var import_react4 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
 
   // src/Components/Form.tsx
-  var import_react3 = __toESM(require_react());
+  var import_react4 = __toESM(require_react());
 
   // src/Components/FormFields.tsx
-  var import_react2 = __toESM(require_react());
+  var import_react3 = __toESM(require_react());
 
-  // src/Components/Field.tsx
+  // src/Components/Input.tsx
   var import_react = __toESM(require_react());
-  var Field = (props) => {
+  var Input = (props) => {
     const RenderInput = () => {
-      switch (props.field.type) {
-        case "string":
-          return /* @__PURE__ */ import_react.default.createElement("input", {
-            placeholder: props.placeholder,
-            onChange: props.onChange,
-            type: "text",
-            name: props.name,
-            defaultValue: props.defualtValue
-          });
-        case "number":
-          return /* @__PURE__ */ import_react.default.createElement("input", {
-            placeholder: props.placeholder,
-            onChange: props.onChange,
-            type: "number",
-            name: props.name,
-            defaultValue: props.defualtValue
-          });
-      }
+      return /* @__PURE__ */ import_react.default.createElement("input", {
+        placeholder: props.placeholder,
+        onChange: props.onChange,
+        name: props.name,
+        defaultValue: props.defualtValue,
+        type: props.field.type,
+        id: props.name
+      });
     };
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, props.field.title), RenderInput());
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("label", {
+      htmlFor: props.name
+    }, props.field.title), " ", /* @__PURE__ */ import_react.default.createElement("br", null), RenderInput());
   };
-  var Field_default = Field;
+  var Input_default = Input;
+
+  // src/Components/Select.tsx
+  var import_react2 = __toESM(require_react());
+  var Select = (props) => {
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("label", null, props.name), " ", /* @__PURE__ */ import_react2.default.createElement("br", null), /* @__PURE__ */ import_react2.default.createElement("select", {
+      name: props.keyName,
+      onChange: props.onChange
+    }, props.field.options.map((option, index) => {
+      return /* @__PURE__ */ import_react2.default.createElement("option", {
+        key: props.keyName + index,
+        value: option
+      }, option);
+    })));
+  };
+  var Select_default = Select;
 
   // src/Components/FormFields.tsx
   var FormFields = (props) => {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, Object.keys(props.fields).map((keyName) => {
-      return /* @__PURE__ */ import_react2.default.createElement(Field_default, {
-        placeholder: props.fields[keyName].placeholder,
-        onChange: props.onChange,
-        field: props.fields[keyName],
-        key: keyName,
-        name: keyName,
-        defualtValue: props.fields[keyName].default
-      });
-    })));
+    const RenderField = (field, keyName) => {
+      switch (field.type) {
+        case "text":
+        case "number":
+          return /* @__PURE__ */ import_react3.default.createElement(Input_default, {
+            placeholder: field.placeholder,
+            onChange: props.onChange,
+            field,
+            key: keyName,
+            name: keyName,
+            defualtValue: field.default
+          });
+        case "select":
+          return /* @__PURE__ */ import_react3.default.createElement(Select_default, {
+            name: field.title,
+            field,
+            onChange: props.onChange,
+            keyName,
+            defualtValue: field.default
+          });
+        default:
+          break;
+      }
+    };
+    return /* @__PURE__ */ import_react3.default.createElement("div", null, Object.keys(props.fields).map((keyName) => {
+      return RenderField(props.fields[keyName], keyName);
+    }));
   };
   var FormFields_default = FormFields;
 
   // src/Components/Form.tsx
-  var Form = class extends import_react3.Component {
+  var Form = class extends import_react4.Component {
     constructor(props) {
       super(props);
       this.getValuesFromFields = (fields) => {
@@ -19437,7 +19461,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       };
       this.guessDefaultValues = (type) => {
         switch (type) {
-          case "string":
+          case "text":
             return "";
           case "number":
             return 0;
@@ -19451,6 +19475,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             return value != null ? value : this.guessDefaultValues(type);
           case "number":
             return valueAsNumber != null ? valueAsNumber : this.guessDefaultValues(type);
+          case "select-one":
+            return value;
           default:
             return value;
         }
@@ -19478,10 +19504,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       };
     }
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement("form", null, /* @__PURE__ */ import_react3.default.createElement("h1", null, this.props.schema.title), /* @__PURE__ */ import_react3.default.createElement(FormFields_default, {
+      return /* @__PURE__ */ import_react4.default.createElement("form", null, /* @__PURE__ */ import_react4.default.createElement("h1", null, this.props.schema.title), /* @__PURE__ */ import_react4.default.createElement(FormFields_default, {
         onChange: this.onFieldChange,
         fields: this.props.schema.fields
-      }), /* @__PURE__ */ import_react3.default.createElement("input", {
+      }), /* @__PURE__ */ import_react4.default.createElement("input", {
         type: "button",
         value: "Enviar",
         onClick: this.onSubmit
@@ -19491,7 +19517,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
 
   // src/index.tsx
   var App = (props) => {
-    return /* @__PURE__ */ import_react4.default.createElement(Form, {
+    return /* @__PURE__ */ import_react5.default.createElement(Form, {
       onChange: props.onChange,
       schema: props.schema,
       onSubmit: props.onSubmit
@@ -19503,14 +19529,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   var formSchema = {
     title: "Prueba",
     fields: {
-      "name": { title: "Nombre", type: "string", placeholder: "Pon tu nombre aqu\xED asqueroso", default: "Isabella" },
-      "lastName": { title: "Last Name", type: "string", placeholder: "Please type your last name" },
+      "name": { title: "Nombre", type: "text", placeholder: "Pon tu nombre aqu\xED asqueroso", default: "Isabella" },
+      "lastName": { title: "Last Name", type: "text", placeholder: "Please type your last name" },
       "age": { title: "Age", type: "number", default: 19 },
+      "tipoDocumento": { title: "Tipo de documento", type: "select", options: ["Cedula", "Pasaporte", "Otro"] },
       "cedula": { title: "Cedula", type: "number" }
     }
   };
   var DevApp = () => {
-    const [values, setValues] = (0, import_react5.useState)({ name: "", lastName: "", age: "" });
+    const [values, setValues] = (0, import_react6.useState)({ name: "", lastName: "", age: "" });
     const handleSubmit = (values2) => {
       console.log(values2);
     };
@@ -19518,18 +19545,13 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       setValues(values2);
       console.log(values2);
     };
-    const RenderFields = () => {
-      return Object.keys(values).map((keyName) => {
-        return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("h4", null, keyName));
-      });
-    };
-    return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement(src_default, {
+    return /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement(src_default, {
       schema: formSchema,
       onChange: handleChange,
       onSubmit: handleSubmit
     }));
   };
-  import_react_dom.default.render(/* @__PURE__ */ import_react5.default.createElement(DevApp, null), document.getElementById("root"));
+  import_react_dom.default.render(/* @__PURE__ */ import_react6.default.createElement(DevApp, null), document.getElementById("root"));
 })();
 /*
 object-assign

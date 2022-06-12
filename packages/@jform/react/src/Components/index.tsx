@@ -1,9 +1,11 @@
 import RenderForm from './Form';
 import FormFields from './FormFields';
-import Field from './Field';
+import Input from './Input';
+import Select from './Select';
 
 export {
     RenderForm,
     FormFields,
-    Field
+    Input,
+    Select
 }
