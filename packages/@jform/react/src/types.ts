@@ -16,7 +16,7 @@ export interface SelectField {
   type: 'select';
   default?: string;
   title: string;
-  options: string[]
+  options: string[];
 }
 
 export type FieldProp = StringField | NumberField | SelectField;

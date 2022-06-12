@@ -1095,7 +1095,7 @@
             }
             return dispatcher.useContext(Context, unstable_observedBits);
           }
-          function useState3(initialState) {
+          function useState2(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1107,7 +1107,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect2(create, deps) {
+          function useEffect(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1380,13 +1380,13 @@
           exports.useCallback = useCallback;
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
-          exports.useEffect = useEffect2;
+          exports.useEffect = useEffect;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect;
           exports.useMemo = useMemo;
           exports.useReducer = useReducer;
           exports.useRef = useRef;
-          exports.useState = useState3;
+          exports.useState = useState2;
           exports.version = ReactVersion;
         })();
       }
@@ -19529,11 +19529,24 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   var formSchema = {
     title: "Prueba",
     fields: {
-      "name": { title: "Nombre", type: "text", placeholder: "Pon tu nombre aqu\xED asqueroso", default: "Isabella" },
-      "lastName": { title: "Last Name", type: "text", placeholder: "Please type your last name" },
-      "age": { title: "Age", type: "number", default: 19 },
-      "tipoDocumento": { title: "Tipo de documento", type: "select", options: ["Cedula", "Pasaporte", "Otro"] },
-      "cedula": { title: "Cedula", type: "number" }
+      name: {
+        title: "Nombre",
+        type: "text",
+        placeholder: "Pon tu nombre aqu\xED asqueroso",
+        default: "Isabella"
+      },
+      lastName: {
+        title: "Last Name",
+        type: "text",
+        placeholder: "Please type your last name"
+      },
+      age: { title: "Age", type: "number", default: 19 },
+      tipoDocumento: {
+        title: "Tipo de documento",
+        type: "select",
+        options: ["Cedula", "Pasaporte", "Otro"]
+      },
+      cedula: { title: "Cedula", type: "number" }
     }
   };
   var DevApp = () => {

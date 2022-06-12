@@ -12,7 +12,7 @@ const Input = (props: FieldProps) => {
         type={props.field.type}
         id={props.name}
       />
-    )
+    );
   };
 
   return (

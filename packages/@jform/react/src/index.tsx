@@ -4,7 +4,11 @@ import { RenderForm } from './Components';
 
 const App = (props: FormProps) => {
   return (
-    <RenderForm onChange={props.onChange} schema={props.schema} onSubmit={props.onSubmit}/>
+    <RenderForm
+      onChange={props.onChange}
+      schema={props.schema}
+      onSubmit={props.onSubmit}
+    />
   );
 };
 
