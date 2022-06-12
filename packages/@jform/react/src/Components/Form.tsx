@@ -1,32 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { FormProps } from "types";
 import FormFields from "./FormFields";
 
-const Form = (props: FormProps) => {
+export default class Form extends Component<FormProps, {title: string, fields: any, values: any, onChange: any, onSubmit: any}> {
+    constructor(props: FormProps) {
+        super(props);
 
-    const [fieldsValue, setFieldsValue] = useState({});
+        this.state = {
+            title: props.schema.title,
+            fields: props.schema.fields,
+            values: {},
+            onChange: props.onChange,
+            onSubmit: props.onSubmit,
+        }
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    }
+
+    onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFieldsValue({ ...fieldsValue, [name]: value }); // Set state with new value
+
+        this.setState(prev => ({
+            ...prev,
+            values: {
+                ...prev.values,
+                [name]: value
+            }
+        }), () => {
+            this.props.onChange(this.state.values)
+        })
     }
 
-    useEffect(() => {
-        props.onChange(fieldsValue)
-    }, [fieldsValue])
-
-    const onClick = (e: any) => {
+    onSubmit = (e: any) => {
         e.preventDefault();
-        props.onSubmit(fieldsValue);
+        this.props.onSubmit(this.state.values);
     }
 
-    return (
-        <form>
-            <h1>{props.schema.title}</h1>
-            <FormFields onChange={onChange} fields={props.schema.fields} />
-            <input type="button" value="Enviar" onClick={onClick} />
-        </form>
-    )
+    render(): React.ReactNode {
+        return (
+            <form>
+                <h1>{this.props.schema.title}</h1>
+                <FormFields onChange={this.onFieldChange} fields={this.props.schema.fields} />
+                <input type="button" value="Enviar" onClick={this.onSubmit} />
+            </form>
+        )
+    }
 }
-
-export default Form;

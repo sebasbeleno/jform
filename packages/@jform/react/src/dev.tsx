@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { FormSchema } from 'types';
-import { Form } from './index';
+import App from './index';
 
 const formSchema: FormSchema = {
     title: 'Prueba',
@@ -14,7 +14,7 @@ const formSchema: FormSchema = {
 };
 
 
-const App = () => {
+const DevApp = () => {
     const [values, setValues] = useState({ name: '', lastName: '', age: '' });
 
     const handleSubmit = (values: any) => {
@@ -23,6 +23,7 @@ const App = () => {
 
     const handleChange = (values: any) => {
         setValues(values)
+        console.log(values)
     }
 
     const RenderFields = () => {
@@ -30,7 +31,6 @@ const App = () => {
             return (
                 <div>
                     <h4>{keyName}</h4>
-                    <p>{values[keyName]}</p>
                 </div>
             )
         })
@@ -38,11 +38,11 @@ const App = () => {
 
     return (
         <div>
-            <Form schema={formSchema} onChange={handleChange} onSubmit={handleSubmit}/>
+            <App schema={formSchema} onChange={handleChange} onSubmit={handleSubmit}/>
 
             {RenderFields()}
 
         </div>
     )
 }
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<DevApp />, document.getElementById('root'));
