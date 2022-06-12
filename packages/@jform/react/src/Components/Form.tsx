@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormProps, FieldType, FormState, FormValue } from 'types';
 import FormFields from './FormFields';
-
+import { getValueFromField, guessDefaultValues } from '../utils';
 export default class Form extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
@@ -19,39 +19,9 @@ export default class Form extends Component<FormProps, FormState> {
     let values: FormValue = {};
     Object.keys(fields).forEach((keyName) => {
       values[keyName] =
-        fields[keyName].default ??
-        this.guessDefaultValues(fields[keyName].type);
+        fields[keyName].default ?? guessDefaultValues(fields[keyName].type);
     });
     return values;
-  };
-
-  guessDefaultValues = (type: string) => {
-    switch (type) {
-      case 'text':
-        return '';
-      case 'number':
-        return 0;
-
-      default:
-        break;
-    }
-  };
-
-  getValueFromField = (
-    value: string,
-    type: string,
-    valueAsNumber: number
-  ): any => {
-    switch (type) {
-      case 'text':
-        return value ?? this.guessDefaultValues(type);
-      case 'number':
-        return valueAsNumber ?? this.guessDefaultValues(type);
-      case 'select-one':
-        return value;
-      default:
-        return value;
-    }
   };
 
   onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +32,7 @@ export default class Form extends Component<FormProps, FormState> {
         ...prev,
         values: {
           ...prev.values,
-          [name]: this.getValueFromField(value, type, valueAsNumber)
+          [name]: getValueFromField(value, type, valueAsNumber)
         }
       }),
       () => {

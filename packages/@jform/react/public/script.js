@@ -19447,6 +19447,30 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
   var FormFields_default = FormFields;
 
+  // src/utils/index.ts
+  function getValueFromField(value, type, valueAsNumber) {
+    switch (type) {
+      case "text":
+        return value != null ? value : guessDefaultValues(type);
+      case "number":
+        return valueAsNumber != null ? valueAsNumber : guessDefaultValues(type);
+      case "select-one":
+        return value;
+      default:
+        return value;
+    }
+  }
+  function guessDefaultValues(type) {
+    switch (type) {
+      case "text":
+        return "";
+      case "number":
+        return 0;
+      default:
+        break;
+    }
+  }
+
   // src/Components/Form.tsx
   var Form = class extends import_react4.Component {
     constructor(props) {
@@ -19455,37 +19479,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         let values = {};
         Object.keys(fields).forEach((keyName) => {
           var _a;
-          values[keyName] = (_a = fields[keyName].default) != null ? _a : this.guessDefaultValues(fields[keyName].type);
+          values[keyName] = (_a = fields[keyName].default) != null ? _a : guessDefaultValues(fields[keyName].type);
         });
         return values;
-      };
-      this.guessDefaultValues = (type) => {
-        switch (type) {
-          case "text":
-            return "";
-          case "number":
-            return 0;
-          default:
-            break;
-        }
-      };
-      this.getValueFromField = (value, type, valueAsNumber) => {
-        switch (type) {
-          case "text":
-            return value != null ? value : this.guessDefaultValues(type);
-          case "number":
-            return valueAsNumber != null ? valueAsNumber : this.guessDefaultValues(type);
-          case "select-one":
-            return value;
-          default:
-            return value;
-        }
       };
       this.onFieldChange = (e) => {
         const { name, value, valueAsNumber, type } = e.target;
         this.setState((prev) => __spreadProps(__spreadValues({}, prev), {
           values: __spreadProps(__spreadValues({}, prev.values), {
-            [name]: this.getValueFromField(value, type, valueAsNumber)
+            [name]: getValueFromField(value, type, valueAsNumber)
           })
         }), () => {
           this.props.onChange(this.state.values);
