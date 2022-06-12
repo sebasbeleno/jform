@@ -1,3 +1,5 @@
+import { FieldProp, FieldType, FormValue } from '../types';
+
 /**
  * get the value of a field in a form
  * @param value target value
@@ -12,9 +14,9 @@ export function getValueFromField(
 ) {
   switch (type) {
     case 'text':
-      return value ?? guessDefaultValues(type);
+      return value ?? guessDefaultValuesFromTypeInput(type);
     case 'number':
-      return valueAsNumber ?? guessDefaultValues(type);
+      return valueAsNumber ?? guessDefaultValuesFromTypeInput(type);
     case 'select-one':
       return value;
     default:
@@ -22,19 +24,41 @@ export function getValueFromField(
   }
 }
 
-/**
- * Guess default values for a field
- * @param type input type
- * @returns default value
- */
-export function guessDefaultValues(type: string) {
+function guessDefaultValuesFromTypeInput(type: string) {
   switch (type) {
     case 'text':
       return '';
     case 'number':
       return 0;
-
+    case 'select':
+      return '';
     default:
       break;
   }
+}
+/**
+ * Guess default values for a field
+ * @param type input type
+ * @returns default value
+ */
+function guessDefaultValuesFromField(field: FieldProp) {
+  switch (field.type) {
+    case 'text':
+      return '';
+    case 'number':
+      return 0;
+    case 'select':
+      return field.options[0];
+    default:
+      break;
+  }
+}
+
+export function getValuesFromFieldsObject(fields: FieldType) {
+  let values: FormValue = {};
+  Object.keys(fields).forEach((keyName) => {
+    values[keyName] =
+      fields[keyName].default ?? guessDefaultValuesFromField(fields[keyName]);
+  });
+  return values;
 }

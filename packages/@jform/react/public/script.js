@@ -19451,38 +19451,52 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   function getValueFromField(value, type, valueAsNumber) {
     switch (type) {
       case "text":
-        return value != null ? value : guessDefaultValues(type);
+        return value != null ? value : guessDefaultValuesFromTypeInput(type);
       case "number":
-        return valueAsNumber != null ? valueAsNumber : guessDefaultValues(type);
+        return valueAsNumber != null ? valueAsNumber : guessDefaultValuesFromTypeInput(type);
       case "select-one":
         return value;
       default:
         return value;
     }
   }
-  function guessDefaultValues(type) {
+  function guessDefaultValuesFromTypeInput(type) {
     switch (type) {
       case "text":
         return "";
       case "number":
         return 0;
+      case "select":
+        return "";
       default:
         break;
     }
+  }
+  function guessDefaultValuesFromField(field) {
+    switch (field.type) {
+      case "text":
+        return "";
+      case "number":
+        return 0;
+      case "select":
+        return field.options[0];
+      default:
+        break;
+    }
+  }
+  function getValuesFromFieldsObject(fields) {
+    let values = {};
+    Object.keys(fields).forEach((keyName) => {
+      var _a;
+      values[keyName] = (_a = fields[keyName].default) != null ? _a : guessDefaultValuesFromField(fields[keyName]);
+    });
+    return values;
   }
 
   // src/Components/Form.tsx
   var Form = class extends import_react4.Component {
     constructor(props) {
       super(props);
-      this.getValuesFromFields = (fields) => {
-        let values = {};
-        Object.keys(fields).forEach((keyName) => {
-          var _a;
-          values[keyName] = (_a = fields[keyName].default) != null ? _a : guessDefaultValues(fields[keyName].type);
-        });
-        return values;
-      };
       this.onFieldChange = (e) => {
         const { name, value, valueAsNumber, type } = e.target;
         this.setState((prev) => __spreadProps(__spreadValues({}, prev), {
@@ -19500,7 +19514,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       this.state = {
         title: props.schema.title,
         fields: props.schema.fields,
-        values: this.getValuesFromFields(props.schema.fields),
+        values: getValuesFromFieldsObject(props.schema.fields),
         onChange: props.onChange,
         onSubmit: props.onSubmit
       };

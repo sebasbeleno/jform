@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormProps, FieldType, FormState, FormValue } from 'types';
 import FormFields from './FormFields';
-import { getValueFromField, guessDefaultValues } from '../utils';
+import { getValueFromField, getValuesFromFieldsObject } from '../utils';
 export default class Form extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
@@ -9,20 +9,11 @@ export default class Form extends Component<FormProps, FormState> {
     this.state = {
       title: props.schema.title,
       fields: props.schema.fields,
-      values: this.getValuesFromFields(props.schema.fields),
+      values: getValuesFromFieldsObject(props.schema.fields),
       onChange: props.onChange,
       onSubmit: props.onSubmit
     };
   }
-
-  getValuesFromFields = (fields: FieldType): FormValue => {
-    let values: FormValue = {};
-    Object.keys(fields).forEach((keyName) => {
-      values[keyName] =
-        fields[keyName].default ?? guessDefaultValues(fields[keyName].type);
-    });
-    return values;
-  };
 
   onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, valueAsNumber, type } = e.target;
