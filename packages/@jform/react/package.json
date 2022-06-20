@@ -5,13 +5,15 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/src/index.d.ts",
-  "typings": "dist/src/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node serve.js",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run build",
-    "build": "npm run clean && node build.js && tsc --emitDeclarationOnly --outDir dist"
+    "build": "npm run clean && node build.js && tsc --emitDeclarationOnly --outDir dist",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "",
@@ -21,15 +23,41 @@
     "react-dom": "^16.14.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/plugin-proposal-private-methods": "^7.17.12",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@storybook/addon-a11y": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-knobs": "^6.4.0",
+    "@storybook/addon-storyshots": "^6.5.9",
+    "@storybook/addon-storysource": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "babel-loader": "^8.2.5",
     "chokidar": "^3.5.3",
+    "classnames": "^2.3.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
     "esbuild": "^0.14.42",
+    "html-webpack-plugin": "^5.5.0",
     "live-server": "^1.1.0",
+    "postcss-modules": "^4.3.1",
+    "react-scripts": "^5.0.1",
     "rimraf": "^3.0.2",
+    "sass-loader": "^13.0.0",
+    "servor": "^4.0.2",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "@types/react": "^18.0.12",
-    "@types/react-dom": "^18.0.5"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "files": [
     "dist"

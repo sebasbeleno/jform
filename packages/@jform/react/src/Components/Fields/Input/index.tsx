@@ -1,10 +1,12 @@
 import React from 'react';
-import { FieldProps } from 'types';
+import { FieldProps } from '../../../types';
+import "./Input.css";
 
 const Input = (props: FieldProps) => {
   const RenderInput = () => {
     return (
       <input
+        className="inputText"
         placeholder={props.placeholder}
         onChange={props.onChange}
         name={props.name}
@@ -16,8 +18,8 @@ const Input = (props: FieldProps) => {
   };
 
   return (
-    <div>
-      <label htmlFor={props.name}>{props.field.title}</label> <br></br>
+    <div className='fieldContainter'>
+      <label className='inputLabel' htmlFor={props.name}>{props.field.title}</label> <br></br>
       {RenderInput()}
     </div>
   );

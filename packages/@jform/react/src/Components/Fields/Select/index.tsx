@@ -1,5 +1,7 @@
 import React from 'react';
-import { SelectField } from 'types';
+import { SelectField } from '../../../types';
+
+import './Select.css';
 
 interface SelectProps {
   field: SelectField;
@@ -12,8 +14,8 @@ interface SelectProps {
 
 const Select = (props: SelectProps) => {
   return (
-    <div>
-      <label>{props.name}</label> <br></br>
+    <div className='selectInput'>
+      <label className='inputLabel'>{props.name}</label> <br></br>
       <select name={props.keyName} onChange={props.onChange}>
         {props.field.options.map((option, index) => {
           return (
@@ -23,6 +25,15 @@ const Select = (props: SelectProps) => {
           );
         })}
       </select>
+
+      <svg>
+        <use xlinkHref="#select-arrow-down"></use>
+      </svg>
+      <svg className="sprites">
+        <symbol id="select-arrow-down" viewBox="0 0 10 6">
+          <polyline points="1 1 5 5 9 1"></polyline>
+        </symbol>
+      </svg>
     </div>
   );
 };

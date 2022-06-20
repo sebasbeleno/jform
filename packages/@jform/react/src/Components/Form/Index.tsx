@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { FormProps, FieldType, FormState, FormValue } from 'types';
-import FormFields from './FormFields';
-import { getValueFromField, getValuesFromFieldsObject } from '../utils';
+import { FormProps, FieldType, FormState, FormValue } from '../../types';
+import FormFields from '../Fields/FormFields';
+import { getValueFromField, getValuesFromFieldsObject } from '../../utils';
+import './Form.css';
+
 export default class Form extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
@@ -39,13 +41,13 @@ export default class Form extends Component<FormProps, FormState> {
 
   render(): React.ReactNode {
     return (
-      <form>
-        <h1>{this.props.schema.title}</h1>
+      <form className='formContainer'>
+        <h1 className='formTitle'>{this.props.schema.title}</h1>
         <FormFields
           onChange={this.onFieldChange}
           fields={this.props.schema.fields}
         />
-        <input type="button" value="Enviar" onClick={this.onSubmit} />
+        <input className='sendButton' type="button" value="Send" onClick={this.onSubmit} />
       </form>
     );
   }

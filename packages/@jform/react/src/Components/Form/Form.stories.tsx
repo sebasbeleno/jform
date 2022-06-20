@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { FormSchema } from './types';
-import App from './index';
-
+import React from 'react'
+import Form from './Index'
+import { withKnobs, object } from '@storybook/addon-knobs'
+import { FormSchema } from '../../types';
+export default { title: 'Form', decorators: [withKnobs]}
 
 const formSchema: FormSchema = {
-  title: 'Testing',
+  title: 'Formulario',
   fields: {
     name: {
       title: 'Nombre',
@@ -28,26 +28,16 @@ const formSchema: FormSchema = {
   }
 };
 
-const DevApp = () => {
-  const [values, setValues] = useState({ name: '', lastName: '', age: '' });
+export const form = () => {
+  const schema = object('schema', formSchema);
 
   const handleSubmit = (values: any) => {
     console.log(values);
   };
 
   const handleChange = (values: any) => {
-    setValues(values);
     console.log(values);
   };
 
-  return (
-    <div>
-      <App
-        schema={formSchema}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      />
-    </div>
-  );
-};
-ReactDOM.render(<DevApp />, document.getElementById('root'));
+  return <Form schema={schema} onChange={handleChange} onSubmit={handleSubmit}/>
+}
